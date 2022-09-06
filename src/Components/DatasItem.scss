@@ -1,0 +1,5 @@
+.datas-item {
+  display: grid;
+  max-width: 50%;
+  grid-template-columns: repeat(2, 2fr);
+}

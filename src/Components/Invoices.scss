@@ -1,0 +1,53 @@
+.all-invoices {
+  background-color: #000000a0;
+  color: #fff;
+  min-width: 80%;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  .content-table {
+    border-collapse: collapse;
+    margin: 25px;
+    font-size: 1.5em;
+    min-width: 96%;
+    thead tr {
+      text-align: left;
+      background-color: #000000a0;
+      font-weight: bold;
+    }
+    thead th {
+      padding: 12px 15px;
+    }
+    tbody {
+      .link {
+        text-decoration: none;
+        color: #fff;
+      }
+    }
+    tbody td {
+      padding: 12px 15px;
+    }
+    tbody tr:hover {
+      background-color: #0000004a;
+    }
+    .btn {
+      background-color: #c4af9a;
+      font-size: 0.7em;
+      border-radius: 10px;
+      border: #a38c76;
+      font-weight: bolder;
+      color: #510d0a;
+    }
+    .btn:hover {
+      background-color: #a38c76;
+    }
+  }
+}
+.empty-invoices {
+  background-color: #000000a0;
+  color: #fff;
+  min-width: 80%;
+  text-align: center;
+  font-size: 2em;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}

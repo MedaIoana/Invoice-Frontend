@@ -1,0 +1,192 @@
+.create-form {
+  background-color: #000000a0;
+  color: #fff;
+  display: grid;
+  min-width: 70%;
+  margin-top: 4em;
+  margin-bottom: 3em;
+  .create {
+    max-width: 100%;
+    text-align: center;
+    font-size: 28px;
+  }
+  .datas {
+    display: grid;
+    max-width: 100%;
+    margin-left: 2em;
+    margin-right: 2em;
+    .wrapper-items {
+      display: grid;
+      grid-template-columns: repeat(2, 2fr);
+
+      .remove-btn {
+        display: flex;
+        float: right;
+        height: 30px;
+        padding: 0px;
+        background: #960606;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        overflow: hidden;
+        font-size: 15px;
+        cursor: pointer;
+        .remove-text,
+        .remove-icon {
+          display: flex;
+          align-items: center;
+          padding: 0 5px;
+          height: 100%;
+        }
+        .remove-icon {
+          font-size: 1.2em;
+          background: rgba(0, 0, 0, 0.2);
+        }
+      }
+      .remove-btn:hover {
+        background: #700303;
+      }
+      .remove-btn:active {
+        background: #600303;
+      }
+      .add-btn {
+        display: flex;
+        float: right;
+        margin-left: 200px;
+        height: 30px;
+        padding: 0px;
+        background: #f0efd8;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        overflow: hidden;
+        font-size: 15px;
+        cursor: pointer;
+        .add-text,
+        .add-icon {
+          display: flex;
+          align-items: center;
+          padding: 0 5px;
+          height: 100%;
+        }
+        .add-icon {
+          font-size: 1.2em;
+          background: rgba(0, 0, 0, 0.2);
+        }
+      }
+      .add-btn:hover {
+        background: #f0eec7;
+      }
+      .add-btn:active {
+        background: #d1cfa7;
+      }
+      .datas-item {
+        display: grid;
+        max-width: 100%;
+        max-height: 25em;
+        margin-bottom: 2em;
+        text-align: center;
+        .title {
+          font-size: 22px;
+        }
+        .item {
+          font-size: 20px;
+          position: relative;
+          margin: 1em;
+          height: 50px;
+          overflow: hidden;
+          .input {
+            width: 100%;
+            height: 100%;
+            color: antiquewhite;
+            padding-top: 15px;
+            border: none;
+            background-color: #0000000a;
+            outline: none;
+          }
+          .lable {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            border-bottom: 1px solid antiquewhite;
+            .lable-content {
+              position: absolute;
+              bottom: 10px;
+              left: 0px;
+              transition: all 0.3s ease;
+            }
+          }
+          .lable::after {
+            content: "";
+            position: absolute;
+            left: 0px;
+            bottom: -1px;
+            width: 100%;
+            border-bottom: 3px solid #fad198;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            .lable-content {
+              position: absolute;
+              bottom: 5px;
+              left: 0px;
+              transition: all 0.3s ease;
+            }
+          }
+          .input:focus + .lable .lable-content,
+          .input:valid + .lable .lable-content {
+            transform: translateY(-150%);
+            font-size: 14px;
+            color: whitesmoke;
+          }
+          .input:focus + .lable::after,
+          .input:valid + .lable::after {
+            transform: translateX(0%);
+          }
+        }
+      }
+    }
+  }
+  .button-create {
+    text-align: center;
+    margin-bottom: 3em;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    .create-btn {
+      display: flex;
+      //float: right;
+      margin-left: 20px;
+      height: 30px;
+      padding: 0px;
+      margin-top: 2em;
+      margin-bottom: 2em;
+      background: #f0efd8;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 20px;
+      cursor: pointer;
+      .create-text,
+      .create-icon {
+        display: flex;
+        align-items: center;
+        padding: 0 5px;
+        height: 100%;
+      }
+      .create-icon {
+        font-size: 1.2em;
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
+    .create-btn:hover {
+      background: #f0eec7;
+    }
+    .create-btn:active {
+      background: #d1cfa7;
+    }
+  }
+}

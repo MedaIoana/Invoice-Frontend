@@ -1,0 +1,64 @@
+.invoice-datas {
+  display: grid;
+  max-width: 100%;
+  grid-template-columns: repeat(2, 2fr);
+  max-height: 30em;
+  margin-bottom: 2em;
+  .invoice {
+    font-size: 20px;
+    position: relative;
+    margin: 1em;
+    height: 50px;
+    overflow: hidden;
+    .input {
+      width: 100%;
+      height: 100%;
+      color: antiquewhite;
+      padding-top: 15px;
+      border: none;
+      background-color: #0000000a;
+      outline: none;
+    }
+    .lable {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      border-bottom: 1px solid antiquewhite;
+      .lable-content {
+        position: absolute;
+        bottom: 10px;
+        left: 0px;
+        transition: all 0.3s ease;
+      }
+    }
+    .lable::after {
+      content: "";
+      position: absolute;
+      left: 0px;
+      bottom: -1px;
+      width: 100%;
+      border-bottom: 3px solid #fad198;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      .lable-content {
+        position: absolute;
+        bottom: 5px;
+        left: 0px;
+        transition: all 0.3s ease;
+      }
+    }
+    .input:focus + .lable .lable-content,
+    .input:valid + .lable .lable-content {
+      transform: translateY(-150%);
+      font-size: 14px;
+      color: whitesmoke;
+    }
+    .input:focus + .lable::after,
+    .input:valid + .lable::after {
+      transform: translateX(0%);
+    }
+  }
+}
