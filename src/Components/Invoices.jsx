@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useCallback } from "react";
 import "./Invoices.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { FaTrash, FaPrint } from "react-icons/fa";
@@ -19,10 +19,16 @@ const Invoices = ({ data, len, seeInvoice }) => {
   // useEffect(() => {
   //   postDelete();
   // }, []);
+  //
 
-  function handleRowClick(e, idI) {
-    //navigate.push("/invoice", { id: idI });
-  }
+  // const handleRowClick = (event, idI) => {
+  //   navigate(`/invoice/${idI}`);
+  //   console.log(idI);
+  //   console.log(2);
+  // };
+  // useEffect(() => {
+  //   handleRowClick();
+  // }, [handleRowClick]);
 
   if (len !== 0)
     return (
@@ -42,25 +48,31 @@ const Invoices = ({ data, len, seeInvoice }) => {
           <tbody>
             {data.map((data) => (
               <tr>
-                <Link
-                  to={{ pathname: "/invoice", state: { id: data.invoiceId } }}
-                >
-                  <td onClick={(e) => handleRowClick(e, data.invoiceId)}>
-                    {data.providerName}
-                  </td>
-                </Link>
-                <td onClick={(e) => handleRowClick(e, data.invoiceId)}>
-                  {data.date}
+                {/* onClick={handleRowClick(data.invoiceId)} */}
+                <td className="outside-td">
+                  <Link to={`/invoice/${data.invoiceId}`} className="link">
+                    <td className="inside-td">{data.providerName}</td>
+                  </Link>
                 </td>
-
-                <td onClick={(e) => handleRowClick(e, data.invoiceId)}>
-                  {data.beneficiaryName}
+                <td>
+                  <Link to={`/invoice/${data.invoiceId}`} className="link">
+                    <td>{data.date}</td>
+                  </Link>
                 </td>
-                <td onClick={(e) => handleRowClick(e, data.invoiceId)}>
-                  {data.registrationCode}
+                <td>
+                  <Link to={`/invoice/${data.invoiceId}`} className="link">
+                    <td>{data.beneficiaryName}</td>
+                  </Link>
                 </td>
-                <td onClick={(e) => handleRowClick(e, data.invoiceId)}>
-                  {data.totalPriceWithVAT}
+                <td>
+                  <Link to={`/invoice/${data.invoiceId}`} className="link">
+                    <td>{data.registrationCode}</td>
+                  </Link>
+                </td>
+                <td>
+                  <Link to={`/invoice/${data.invoiceId}`} className="link">
+                    <td>{data.totalPriceWithVAT}</td>
+                  </Link>
                 </td>
                 <td>
                   <button
