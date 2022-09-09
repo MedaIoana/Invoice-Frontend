@@ -28,3 +28,17 @@
     }
   }
 }
+@media only screen and (max-height: 800px) {
+  .home {
+    .welcome {
+      margin-top: 1em;
+    }
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .home {
+    .buttons {
+      display: grid;
+    }
+  }
+}

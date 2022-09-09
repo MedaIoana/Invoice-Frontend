@@ -1,12 +1,11 @@
 import React, { useEffect, useCallback } from "react";
 import "./Invoices.scss";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaTrash, FaPrint } from "react-icons/fa";
 import axios from "axios";
+import * as service from "../Services/Service.ts";
 
 const Invoices = ({ data, len, seeInvoice }) => {
-  const navigate = useNavigate();
-
   function postDelete(e, id) {
     axios
       .delete(`http://localhost:8080/invoice/${id}`)
@@ -16,10 +15,10 @@ const Invoices = ({ data, len, seeInvoice }) => {
       .catch((err) => console.log(err));
   }
 
-  // useEffect(() => {
-  //   postDelete();
-  // }, []);
-  //
+  useEffect(() => {
+    service.getInvoices();
+    console.table(service.getInvoices());
+  }, []);
 
   // const handleRowClick = (event, idI) => {
   //   navigate(`/invoice/${idI}`);
@@ -46,30 +45,30 @@ const Invoices = ({ data, len, seeInvoice }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((data) => (
+            {data.map((data, key) => (
               <tr>
                 {/* onClick={handleRowClick(data.invoiceId)} */}
-                <td className="outside-td">
+                <td className="outside-td" key={key}>
                   <Link to={`/invoice/${data.invoiceId}`} className="link">
                     <td className="inside-td">{data.providerName}</td>
                   </Link>
                 </td>
-                <td>
+                <td key={key}>
                   <Link to={`/invoice/${data.invoiceId}`} className="link">
                     <td>{data.date}</td>
                   </Link>
                 </td>
-                <td>
+                <td key={key}>
                   <Link to={`/invoice/${data.invoiceId}`} className="link">
                     <td>{data.beneficiaryName}</td>
                   </Link>
                 </td>
-                <td>
+                <td key={key}>
                   <Link to={`/invoice/${data.invoiceId}`} className="link">
                     <td>{data.registrationCode}</td>
                   </Link>
                 </td>
-                <td>
+                <td key={key}>
                   <Link to={`/invoice/${data.invoiceId}`} className="link">
                     <td>{data.totalPriceWithVAT}</td>
                   </Link>

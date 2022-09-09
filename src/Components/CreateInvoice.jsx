@@ -80,7 +80,7 @@ const CreateInvoice = () => {
     await axios
       .post(`http://localhost:8080/invoice`, newInvoice)
       .then((res) => {
-        navigate("/invoice");
+        navigate("/all");
       })
       .catch(function (err) {
         console.log("ERROR: " + err);
