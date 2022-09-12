@@ -20,15 +20,6 @@ const Invoices = ({ data, len, seeInvoice }) => {
     console.table(service.getInvoices());
   }, []);
 
-  // const handleRowClick = (event, idI) => {
-  //   navigate(`/invoice/${idI}`);
-  //   console.log(idI);
-  //   console.log(2);
-  // };
-  // useEffect(() => {
-  //   handleRowClick();
-  // }, [handleRowClick]);
-
   if (len !== 0)
     return (
       <div className="all-invoices">
@@ -47,32 +38,15 @@ const Invoices = ({ data, len, seeInvoice }) => {
           <tbody>
             {data.map((data, key) => (
               <tr>
-                {/* onClick={handleRowClick(data.invoiceId)} */}
                 <td className="outside-td" key={key}>
                   <Link to={`/invoice/${data.invoiceId}`} className="link">
                     <td className="inside-td">{data.providerName}</td>
                   </Link>
                 </td>
-                <td key={key}>
-                  <Link to={`/invoice/${data.invoiceId}`} className="link">
-                    <td>{data.date}</td>
-                  </Link>
-                </td>
-                <td key={key}>
-                  <Link to={`/invoice/${data.invoiceId}`} className="link">
-                    <td>{data.beneficiaryName}</td>
-                  </Link>
-                </td>
-                <td key={key}>
-                  <Link to={`/invoice/${data.invoiceId}`} className="link">
-                    <td>{data.registrationCode}</td>
-                  </Link>
-                </td>
-                <td key={key}>
-                  <Link to={`/invoice/${data.invoiceId}`} className="link">
-                    <td>{data.totalPriceWithVAT}</td>
-                  </Link>
-                </td>
+                <td>{data.date}</td>
+                <td>{data.beneficiaryName}</td>
+                <td>{data.registrationCode}</td>
+                <td>{data.totalPriceWithVAT}</td>
                 <td>
                   <button
                     className="btn"
