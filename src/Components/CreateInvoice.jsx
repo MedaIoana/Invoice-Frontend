@@ -19,9 +19,9 @@ const CreateInvoice = () => {
   const [beneficiaryAddress, setBeneficiaryAddress] = useState("");
   const [beneficiaryCUI, setBeneficiaryCUI] = useState("");
   const [itemName, setItemName] = useState("");
-  const [itemQuantity, setItemQuantity] = useState(null);
-  const [aplicableVAT, setAplicableVAT] = useState(null);
-  const [pricePerUnitNoVAT, setPricePerUnitNoVAT] = useState(null);
+  const [itemQuantity, setItemQuantity] = useState(0);
+  const [aplicableVAT, setAplicableVAT] = useState(0);
+  const [pricePerUnitNoVAT, setPricePerUnitNoVAT] = useState(0);
 
   const [itemList, setItemList] = useState([
     {
@@ -80,7 +80,7 @@ const CreateInvoice = () => {
     await axios
       .post(`http://localhost:8080/invoice`, newInvoice)
       .then((res) => {
-        navigate("/invoice");
+        navigate("/all");
       })
       .catch(function (err) {
         console.log("ERROR: " + err);

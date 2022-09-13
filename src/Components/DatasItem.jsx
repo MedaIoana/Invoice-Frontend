@@ -14,7 +14,6 @@ const DatasItem = ({
   pricePerUnitNoVAT,
   setPricePerUnitNoVAT,
 }) => {
-  //console.log(itemList[0]);
   const handleItemChange = (e, index) => {
     const { name, value } = e;
     const list = [...itemList];
