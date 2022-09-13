@@ -105,14 +105,20 @@ const Invoice = (data) => {
           <tbody>
             {inv.itemList.map((item, index) => (
               <tr>
-                <td>{index + 1}</td>
-                <td>{item.itemName}</td>
-                <td>{item.itemQuantity}</td>
-                <td>{item.pricePerUnitNoVAT}</td>
-                <td>{Math.round(item.pricePerQuantityNoVAT * 100) / 100}</td>
-                <td>{item.applicableVAT}</td>
-                <td>{Math.round(item.pricePerUnitWithVAT * 100) / 100}</td>
-                <td>{Math.round(item.pricePerQuantityWithVAT * 100) / 100}</td>
+                <td index={index}>{index + 1}</td>
+                <td index={index}>{item.itemName}</td>
+                <td index={index}>{item.itemQuantity}</td>
+                <td index={index}>{item.pricePerUnitNoVAT}</td>
+                <td index={index}>
+                  {Math.round(item.pricePerQuantityNoVAT * 100) / 100}
+                </td>
+                <td index={index}>{item.applicableVAT}</td>
+                <td index={index}>
+                  {Math.round(item.pricePerUnitWithVAT * 100) / 100}
+                </td>
+                <td index={index}>
+                  {Math.round(item.pricePerQuantityWithVAT * 100) / 100}
+                </td>
               </tr>
             ))}
           </tbody>

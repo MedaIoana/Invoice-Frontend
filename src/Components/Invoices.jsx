@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import "./Invoices.scss";
 import { Link } from "react-router-dom";
 import { FaTrash, FaPrint } from "react-icons/fa";
@@ -43,10 +43,10 @@ const Invoices = ({ data, len, seeInvoice }) => {
                     <td className="inside-td">{data.providerName}</td>
                   </Link>
                 </td>
-                <td>{data.date}</td>
-                <td>{data.beneficiaryName}</td>
-                <td>{data.registrationCode}</td>
-                <td>{data.totalPriceWithVAT}</td>
+                <td key={key}>{data.date}</td>
+                <td key={key}>{data.beneficiaryName}</td>
+                <td key={key}>{data.registrationCode}</td>
+                <td key={key}>{data.totalPriceWithVAT}</td>
                 <td>
                   <button
                     className="btn"
