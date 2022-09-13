@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Invoices.scss";
 import { Link } from "react-router-dom";
 import { FaTrash, FaPrint } from "react-icons/fa";
@@ -6,6 +6,7 @@ import axios from "axios";
 import * as service from "../Services/Service.ts";
 
 const Invoices = ({ data, len, seeInvoice }) => {
+  const [searchTerm, setSearchTerm] = useState("");
   function postDelete(e, id) {
     axios
       .delete(`http://localhost:8080/invoice/${id}`)
@@ -23,6 +24,17 @@ const Invoices = ({ data, len, seeInvoice }) => {
   if (len !== 0)
     return (
       <div className="all-invoices">
+        <label className="search-bar-lable">
+          Search Provider or Date:
+          <input
+            type="text"
+            placeholder="Search..."
+            className="search-bar"
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+            }}
+          />
+        </label>
         <table className="content-table">
           <thead>
             <tr>
@@ -36,41 +48,58 @@ const Invoices = ({ data, len, seeInvoice }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((data, key) => (
-              <tr>
-                <td className="outside-td" key={key}>
-                  <Link to={`/invoice/${data.invoiceId}`} className="link">
-                    <td className="inside-td">{data.providerName}</td>
-                  </Link>
-                </td>
-                <td key={key}>{data.date}</td>
-                <td key={key}>{data.beneficiaryName}</td>
-                <td key={key}>{data.registrationCode}</td>
-                <td key={key}>{data.totalPriceWithVAT}</td>
-                <td>
-                  <button
-                    className="btn"
-                    onClick={(e) => postDelete(e, data.invoiceId)}
-                  >
-                    Delete
-                    <FaTrash />
-                  </button>
-                </td>
-                <td>
-                  <a
-                    href={
-                      "http://localhost:8080/invoice/" +
-                      data.invoiceId +
-                      "/print"
-                    }
-                  >
-                    <button className="btn">
-                      Print <FaPrint />
+            {data
+              .filter((val) => {
+                if (searchTerm === "") return val;
+                else if (
+                  val.providerName
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
+                )
+                  return val;
+                else if (val.date.includes(searchTerm)) return val;
+                // else if (
+                //   val.beneficiaryName
+                //     .toLowerCase()
+                //     .includes(searchTerm.toLowerCase())
+                // )
+                //   return val;
+              })
+              .map((data, key) => (
+                <tr>
+                  <td className="outside-td">
+                    <Link to={`/invoice/${data.invoiceId}`} className="link">
+                      {data.providerName}
+                    </Link>
+                  </td>
+                  <td>{data.date}</td>
+                  <td>{data.beneficiaryName}</td>
+                  <td>{data.registrationCode}</td>
+                  <td>{data.totalPriceWithVAT}</td>
+                  <td>
+                    <button
+                      className="btn"
+                      onClick={(e) => postDelete(e, data.invoiceId)}
+                    >
+                      Delete
+                      <FaTrash />
                     </button>
-                  </a>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td>
+                    <a
+                      href={
+                        "http://localhost:8080/invoice/" +
+                        data.invoiceId +
+                        "/print"
+                      }
+                    >
+                      <button className="btn">
+                        Print <FaPrint />
+                      </button>
+                    </a>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
