@@ -79,9 +79,9 @@ const CreateInvoice = () => {
     };
     await axios
       .post(`http://localhost:8080/invoice`, newInvoice)
-      .then((res) => {
-        navigate("/all");
-      })
+      .then(() => {
+        window.location.href = '/all';
+      }) 
       .catch(function (err) {
         console.log("ERROR: " + err);
       });
@@ -128,17 +128,6 @@ const CreateInvoice = () => {
                   </span>
                 </button>
               )}
-              {/* <DatasItem
-              index={index}
-              itemName={singleItem.itemName}
-              setItemName={setItemName}
-              itemQuantity={singleItem.itemQuantity}
-              setItemQuantity={setItemQuantity}
-              aplicableVAT={singleItem.aplicableVAT}
-              setAplicableVAT={setAplicableVAT}
-              pricePerUnitNoVAT={singleItem.pricePerUnitNoVAT}
-              setPricePerUnitNoVAT={setPricePerUnitNoVAT}
-            /> */}
               <div className="datas-item">
                 <span className="title">Item</span>
                 <div className="item">
