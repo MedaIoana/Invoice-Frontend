@@ -3,10 +3,26 @@ import "./Invoices.scss";
 import { Link } from "react-router-dom";
 import { FaTrash, FaPrint } from "react-icons/fa";
 import axios from "axios";
-import * as service from "../Services/Service.ts";
+import Pagination from "./Pagination";
 
 const Invoices = ({ data, len, seeInvoice }) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [invoices, setIncoices] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [invoicesPerPage] = useState(15);
+
+  useEffect(() => {
+    const pagination = () => {
+      setLoading(true);
+      setIncoices(data);
+      setLoading(false);
+      setInvLen(invoices.length);
+    };
+
+    pagination();
+  }, []);
+
   function postDelete(e, id) {
     axios
       .delete(`http://localhost:8080/invoice/${id}`)
@@ -15,11 +31,23 @@ const Invoices = ({ data, len, seeInvoice }) => {
       })
       .catch((err) => console.log(err));
   }
+  const [invLen, setInvLen] = useState(invoices.length);
+  const indexOfLastInvoice = currentPage * invoicesPerPage;
+  const indexOfFirstInvoice = indexOfLastInvoice - invoicesPerPage;
+  const currentInvoices = invoices
+    .filter((val) => {
+      if (searchTerm === "") return val;
+      else if (
+        val.providerName.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+        return val;
+      else if (val.date.includes(searchTerm)) {
+        return val;
+      }
+    })
+    .slice(indexOfFirstInvoice, indexOfLastInvoice);
 
-  useEffect(() => {
-    service.getInvoices();
-    console.table(service.getInvoices());
-  }, []);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (len !== 0)
     return (
@@ -48,23 +76,17 @@ const Invoices = ({ data, len, seeInvoice }) => {
             </tr>
           </thead>
           <tbody>
-            {data
-              .filter((val) => {
-                if (searchTerm === "") return val;
-                else if (
-                  val.providerName
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase())
-                )
-                  return val;
-                else if (val.date.includes(searchTerm)) return val;
-                // else if (
-                //   val.beneficiaryName
-                //     .toLowerCase()
-                //     .includes(searchTerm.toLowerCase())
-                // )
-                //   return val;
-              })
+            {currentInvoices
+              // .filter((val) => {
+              //   if (searchTerm === "") return val;
+              //   else if (
+              //     val.providerName
+              //       .toLowerCase()
+              //       .includes(searchTerm.toLowerCase())
+              //   )
+              //     return val;
+              //   else if (val.date.includes(searchTerm)) return val;
+              // })
               .map((data, key) => (
                 <tr>
                   <td className="outside-td">
@@ -102,6 +124,20 @@ const Invoices = ({ data, len, seeInvoice }) => {
               ))}
           </tbody>
         </table>
+        {!searchTerm && (
+          <Pagination
+            invoicesPerPage={invoicesPerPage}
+            totalInvoices={invoices.length}
+            paginate={paginate}
+          ></Pagination>
+        )}
+        {searchTerm && (
+          <Pagination
+            invoicesPerPage={invoicesPerPage}
+            totalInvoices={invoices.length}
+            paginate={paginate}
+          ></Pagination>
+        )}
       </div>
     );
   else return <div className="empty-invoices">No invoice to see.</div>;
