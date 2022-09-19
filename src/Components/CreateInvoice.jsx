@@ -5,8 +5,11 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaTrash, FaPlus, FaCheck } from "react-icons/fa";
+import { InvoicesContext } from "../Contexts/InvoicesContexts";
+import { useContext } from "react";
 
-const CreateInvoice = () => {
+const CreateInvoice = ({ seeInvoice }) => {
+  const { setData } = useContext(InvoicesContext);
   const navigate = useNavigate();
   const [date, setDate] = useState("");
   const [providerName, setProviderName] = useState("");
@@ -79,9 +82,10 @@ const CreateInvoice = () => {
     };
     await axios
       .post(`http://localhost:8080/invoice`, newInvoice)
-      .then(() => {
-        window.location.href = '/all';
-      }) 
+      .then((res) => {
+        seeInvoice();
+        navigate("/all");
+      })
       .catch(function (err) {
         console.log("ERROR: " + err);
       });

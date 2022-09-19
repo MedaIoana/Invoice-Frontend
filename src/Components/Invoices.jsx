@@ -4,10 +4,13 @@ import { Link } from "react-router-dom";
 import { FaTrash, FaPrint } from "react-icons/fa";
 import axios from "axios";
 import Pagination from "./Pagination";
+import { InvoicesContext } from "../Contexts/InvoicesContexts";
+import { useContext } from "react";
 
-const Invoices = ({ data, len, seeInvoice }) => {
+const Invoices = ({ seeInvoice }) => {
+  const { data } = useContext(InvoicesContext);
   const [searchTerm, setSearchTerm] = useState("");
-  const [invoices, setIncoices] = useState([]);
+  const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [invoicesPerPage] = useState(15);
@@ -15,18 +18,18 @@ const Invoices = ({ data, len, seeInvoice }) => {
   useEffect(() => {
     const pagination = () => {
       setLoading(true);
-      setIncoices(data);
+      setInvoices(data);
       setLoading(false);
       setInvLen(invoices.length);
     };
 
     pagination();
-  }, []);
+  }, [data]);
 
   function postDelete(e, id) {
     axios
       .delete(`http://localhost:8080/invoice/${id}`)
-      .then((res) => {
+      .then(() => {
         seeInvoice();
       })
       .catch((err) => console.log(err));
@@ -49,7 +52,7 @@ const Invoices = ({ data, len, seeInvoice }) => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (len !== 0)
+  if (invoices.length !== 0)
     return (
       <div className="all-invoices">
         <label className="search-bar-lable">
@@ -89,7 +92,7 @@ const Invoices = ({ data, len, seeInvoice }) => {
               // })
               .map((data, key) => (
                 <tr>
-                  <td className="outside-td">
+                  <td className="outside-td" key={key}>
                     <Link to={`/invoice/${data.invoiceId}`} className="link">
                       {data.providerName}
                     </Link>
